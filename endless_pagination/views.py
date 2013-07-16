@@ -74,7 +74,7 @@ class MultipleObjectMixin(object):
         the template will be ``blog/entry_list_page.html``.
         """
         queryset = kwargs.pop('object_list')
-        page_template = kwargs.pop('page_template')
+        page_template = kwargs.pop('page_template', None)
 
         context_object_name = self.get_context_object_name(queryset)
         context = {'object_list': queryset, 'view': self}
@@ -146,7 +146,7 @@ class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):
 
     For instance, assume you have this code (taken from Django docs)::
 
-        from django.conf.urls.defaults import *
+        from django.conf.urls import patterns
         from django.views.generic import ListView
 
         from books.models import Publisher
@@ -161,7 +161,7 @@ class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):
 
     This is straightforward, you only need to replace the view class, e.g.::
 
-        from django.conf.urls.defaults import *
+        from django.conf.urls import patterns
 
         from books.models import Publisher
 
