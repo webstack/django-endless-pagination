@@ -9,6 +9,8 @@
 {% block js %}
   {{ block.super }}
   <script>
-    $.endlessPaginate({paginateOnScroll: true});
+    $(document).ready(function(){
+      $.endlessPaginate({paginateOnScroll: true});
+    });
   </script>
 {% endblock %}

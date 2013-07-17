@@ -25,7 +25,11 @@ jQuery plugin to enable Ajax pagination, e.g.:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 This example assumes that you
@@ -56,7 +60,11 @@ you can use the **pagination on scroll** feature: just set the
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate({paginateOnScroll: true});</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate({paginateOnScroll: true});
+          });
+        </script>
     {% endblock %}
 
 That's all. See the :doc:`templatetags_reference` page to improve usage of
@@ -78,10 +86,12 @@ to be activated when 20 pixels remain to the end of the page:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 paginateOnScroll: true,
                 paginateOnScrollMargin: 20
             });
+          });
         </script>
     {% endblock %}
 
@@ -110,11 +120,13 @@ link, e.g.:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 onClick: function() {
                     console.log('Label:', $(this).text());
                 }
             });
+          });
         </script>
     {% endblock %}
 
@@ -145,6 +157,7 @@ To wrap it up, here is an example showing the callbacks' signatures:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 onClick: function(context) {
                     console.log('Label:', $(this).text());
@@ -161,6 +174,7 @@ To wrap it up, here is an example showing the callbacks' signatures:
                     console.log('Fragment:', fragment);
                 }
             });
+          });
         </script>
     {% endblock %}
 
@@ -186,7 +200,11 @@ in the page. But assuming you are using :doc:`multiple_pagination`, e.g.:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 What if you need Ajax pagination only for *entries* and not for
@@ -199,7 +217,11 @@ selectors, e.g.:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$('#entries').endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $('#entries').endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 The call to *$('#entries').endlessPaginate()* applies Ajax pagination starting
@@ -234,12 +256,14 @@ the behavior of each pagination. E.g. if you need to register a callback for
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $('#entries').endlessPaginate({
                 onCompleted: function(data) {
                     console.log('New entries loaded.');
                 }
             });
             $('#other-entries').endlessPaginate();
+          });
         </script>
     {% endblock %}
 
@@ -277,7 +301,9 @@ have a Digg-style pagination like the following:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $('#entries').endlessPaginate();
+          });
         </script>
     {% endblock %}
 
@@ -300,9 +326,11 @@ and does not involve adding another class to the container:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $('#entries').endlessPaginate({
                 pageSelector: '#entries'
             });
+          });
         </script>
     {% endblock %}
 
@@ -325,10 +353,12 @@ link is displayed after page 5 is loaded, then after page 10, then after page
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 paginateOnScroll: true,
                 paginateOnScrollChunkSize: 5
             });
+          });
         </script>
     {% endblock %}
 
@@ -376,7 +406,11 @@ Now:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 Pagination on scroll
@@ -408,7 +442,9 @@ Now:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({paginateOnScroll: true});
+          });
         </script>
     {% endblock %}
 
@@ -428,7 +464,9 @@ Before:
         <script src="{{ STATIC_URL }}endless_pagination/js/endless.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless_on_scroll.js"></script>
         <script>
+          $(document).ready(function(){
             var endless_on_scroll_margin = 20;
+          });
         </script>
     {% endblock %}
 
@@ -444,10 +482,12 @@ Now:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 paginateOnScroll: true,
                 paginateOnScrollMargin: 20
             });
+          });
         </script>
     {% endblock %}
 
@@ -483,7 +523,11 @@ Now:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$('not:(.endless_page_skip)').endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $('not:(.endless_page_skip)').endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 In this last example, activating Ajax just where you want might be preferred

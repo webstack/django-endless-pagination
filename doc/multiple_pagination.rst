@@ -78,7 +78,11 @@ seen in :ref:`Digg-style pagination and Ajax<digg-ajax>`.
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 See the :doc:`javascript` for further details on how to use the included
@@ -177,7 +181,11 @@ selectors, e.g.:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$('#entries').endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $('#entries').endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 The call to *$('#entries').endlessPaginate()* applies Ajax pagination starting

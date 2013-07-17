@@ -133,7 +133,11 @@ class named *endless_page_template*.
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 *myapp/entry_index_page.html* becomes:
@@ -166,7 +170,11 @@ by customizing the *pageSelector* option of *$.endlessPaginate()*, e.g.:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate({pageSelector: 'div#entries'});</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate({pageSelector: 'div#entries'});
+          });
+          </script>
     {% endblock %}
 
 See the :doc:`javascript` for a detailed explanation of how to integrate

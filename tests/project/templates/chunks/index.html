@@ -17,13 +17,15 @@
 {% block js %}
   {{ block.super }}
   <script>
-    $('.objects').endlessPaginate({
-      paginateOnScroll: true,
-      paginateOnScrollChunkSize: 3
-    });
-    $('.items').endlessPaginate({
-      paginateOnScroll: true,
-      paginateOnScrollChunkSize: 4
+    $(document).ready(function(){
+      $('.objects').endlessPaginate({
+        paginateOnScroll: true,
+        paginateOnScrollChunkSize: 3
+      });
+      $('.items').endlessPaginate({
+        paginateOnScroll: true,
+        paginateOnScrollChunkSize: 4
+      });
     });
   </script>
 {% endblock %}
