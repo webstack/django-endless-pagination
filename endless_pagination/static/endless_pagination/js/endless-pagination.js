@@ -69,7 +69,7 @@
 
             // On scroll pagination.
             if (settings.paginateOnScroll) {
-                var win = $(window),
+                var win = $(window);
                 var doc = $(document);
                 doc.scroll(function(){
                     if (doc.height() - win.height() -
