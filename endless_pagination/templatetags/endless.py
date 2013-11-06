@@ -324,7 +324,7 @@ class PaginateNode(template.Node):
 
 
 @register.inclusion_tag('endless/show_more.html', takes_context=True)
-def show_more(context, label=None, loading=settings.LOADING):
+def show_more(context, label=None, loading=settings.LOADING, class_name=None):
     """Show the link to get the next page in a Twitter-like pagination.
 
     Usage::
@@ -338,6 +338,10 @@ def show_more(context, label=None, loading=settings.LOADING):
     You can override the loading text too::
 
         {% show_more "even more" "working" %}
+
+    You could pass in the extra CSS style class name as a third argument
+
+       {% show_more "even more" "working" "class_name" %}
 
     Must be called after ``{% paginate objects %}``.
     """
