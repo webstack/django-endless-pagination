@@ -361,6 +361,7 @@ def show_more(context, label=None, loading=settings.LOADING, class_name=None):
         return {
             'label': label,
             'loading': loading,
+            'class_name': class_name,
             'path': iri_to_uri(data['override_path'] or request.path),
             'querystring': querystring,
             'querystring_key': querystring_key,
