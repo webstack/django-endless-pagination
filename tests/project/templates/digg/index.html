@@ -9,6 +9,8 @@
 {% block js %}
   {{ block.super }}
   <script>
-    $.endlessPaginate();
+    $(document).ready(function(){
+      $.endlessPaginate();
+    });
   </script>
 {% endblock %}

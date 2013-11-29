@@ -129,7 +129,11 @@ jQuery plugin ``endless-pagination.js`` included in the distribution under
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 *myapp/entry_index_page.html* becomes:
@@ -174,7 +178,11 @@ feature: just set the *paginateOnScroll* option of *$.endlessPaginate()* to
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate({paginateOnScroll: true});</script>
+        <script>
+          $(document).ready(function(){
+            $.endlessPaginate({paginateOnScroll: true});
+          });
+        </script>
     {% endblock %}
 
 That's all. See the :doc:`templatetags_reference` to improve the use of
@@ -195,10 +203,12 @@ pixel). For example, if you want the pagination on scroll to be activated when
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 paginateOnScroll: true,
                 paginateOnScrollMargin: 20
             });
+          });
         </script>
     {% endblock %}
 
@@ -221,10 +231,12 @@ just use the *paginateOnScrollChunkSize* option:
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
         <script>
+          $(document).ready(function(){
             $.endlessPaginate({
                 paginateOnScroll: true,
                 paginateOnScrollChunkSize: 5
             });
+          });
         </script>
     {% endblock %}
 

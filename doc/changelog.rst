@@ -25,7 +25,11 @@ Usage:
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script>$.endlessPaginate();</script>
+        <script> 
+          $(document).ready(function(){
+            $.endlessPaginate();
+          });
+        </script>
     {% endblock %}
 
 The last line in the block above enables Ajax requests to retrieve new
@@ -256,7 +260,9 @@ For example, if you want the pagination on scroll to be activated when
 
     {# add the lines below #}
     <script type="text/javascript" charset="utf-8">
+      $(document).ready(function(){
         var endless_on_scroll_margin = 20;
+      });
     </script>
 
 ----
