@@ -76,9 +76,9 @@
 
             // On scroll pagination.
             if (settings.paginateOnScroll) {
-                var win = $(window),
-                    doc = $(document);
-                win.scroll(function(){
+                var win = $(window);
+                var doc = $(document);
+                doc.scroll(function(){
                     if (doc.height() - win.height() -
                         win.scrollTop() <= settings.paginateOnScrollMargin) {
                         // Do not paginate on scroll if chunks are used and
