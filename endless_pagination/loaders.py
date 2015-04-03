@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.core.exceptions import ImproperlyConfigured
-
 try:
     from importlib import import_module
 except ImportError:
