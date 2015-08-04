@@ -6,7 +6,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-__version__ = '2.0.1'
+__version__ = '2.0.2'
 
 PACKAGE_NAME = 'endless_pagination'
 
