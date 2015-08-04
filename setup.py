@@ -23,7 +23,7 @@ setup(
     long_description=open('README.rst').read(),
     author='Francesco Banconi',
     author_email='francesco.banconi@gmail.com',
-    url='http://github.com/webstack/webstack-django-endless-pagination',
+    url='http://github.com/webstack/django-endless-pagination',
     keywords='django pagination ajax',
     packages=[
         PACKAGE_NAME,
