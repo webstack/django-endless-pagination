@@ -552,7 +552,7 @@ def show_pages(parser, token):
     to a callable, or to a dotted path representing a callable, used to
     customize the pages that are displayed.
 
-    See the *__unicode__* method of ``endless_pagination.models.PageList`` for
+    See the *__str__* method of ``endless_pagination.models.PageList`` for
     a detailed explanation of how the callable can be used.
 
     Must be called after ``{% paginate objects %}``.
