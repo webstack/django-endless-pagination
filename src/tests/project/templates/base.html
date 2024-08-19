@@ -39,13 +39,14 @@
         </div>
       </div>
       <div class="row">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock content %}
       </div>
     </div>
     {% block js %}
-      <script src="http://code.jquery.com/jquery-latest.js"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-latest.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/bootstrap.min.js"></script>
       <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-    {% endblock %}
+    {% endblock js %}
   </body>
 </html>
