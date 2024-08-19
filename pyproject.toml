@@ -1,6 +1,6 @@
 [project]
 name = "webstack-django-endless-pagination"
-version = "2.0.2"
+version = "3.0.0"
 description = "Django Endless Pagination can be used to provide Twitter-style or Digg-style pagination"
 authors = [
     { name = "Francesco Banconi", email = "francesco.banconi@gmail.com" },
