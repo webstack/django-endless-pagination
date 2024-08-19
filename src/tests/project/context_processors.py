@@ -3,9 +3,8 @@
 import platform
 
 import django
-from django.core.urlresolvers import reverse
-
 import endless_pagination
+from django.urls import reverse
 
 VOICES = (
     # Name and label pairs.

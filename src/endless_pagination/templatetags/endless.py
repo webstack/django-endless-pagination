@@ -16,7 +16,6 @@ from endless_pagination.paginators import (
     LazyPaginator,
 )
 
-
 PAGINATE_EXPRESSION = re.compile(
     r"""
     ^   # Beginning of line.
