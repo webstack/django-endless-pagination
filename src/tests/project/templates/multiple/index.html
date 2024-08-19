@@ -1,22 +1,14 @@
 {% extends "base.html" %}
-
 {% block content %}
-  <div class="endless_page_template span6">
-    {% include "multiple/objects_page.html" %}
-  </div>
-  <div class="endless_page_template span6">
-    {% include "multiple/items_page.html" %}
-  </div>
-  <div class="span12">
-    {% include "multiple/entries_page.html" %}
-  </div>
-{% endblock %}
-
+  <div class="endless_page_template span6">{% include "multiple/objects_page.html" %}</div>
+  <div class="endless_page_template span6">{% include "multiple/items_page.html" %}</div>
+  <div class="span12">{% include "multiple/entries_page.html" %}</div>
+{% endblock content %}
 {% block js %}
   {{ block.super }}
   <script>
-    $(document).ready(function(){
-      $.endlessPaginate();
-    });
+      $(document).ready(function() {
+          $.endlessPaginate();
+      });
   </script>
-{% endblock %}
+{% endblock js %}
