@@ -27,4 +27,4 @@ jobs:
         run: rye build
 
       - name: Publish package
-        uses: rye publish --token "${{ secrets.PYPI_API_TOKEN }}" --yes
+        run: rye publish --token "${{ secrets.PYPI_API_TOKEN }}" --yes
