@@ -2,9 +2,6 @@
 
 import os
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
-
-
 PROJECT_NAME = "project"
 
 # Base paths.
@@ -12,7 +9,8 @@ ROOT = os.path.abspath(os.path.dirname(__file__))
 PROJECT = os.path.join(ROOT, PROJECT_NAME)
 
 # Django configuration.
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3"}}
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": "sqlite.db"}}
+
 DEBUG = TEMPLATE_DEBUG = True
 INSTALLED_APPS = (
     "django.contrib.staticfiles",
@@ -25,12 +23,22 @@ SECRET_KEY = os.getenv("ENDLESS_PAGINATION_SECRET_KEY", "secret")
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, "static")
 STATIC_URL = "/static/"
-TEMPLATE_CONTEXT_PROCESSORS += (
-    "django.core.context_processors.request",
-    PROJECT_NAME + ".context_processors.navbar",
-    PROJECT_NAME + ".context_processors.versions",
-)
-TEMPLATE_DIRS = os.path.join(PROJECT, "templates")
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                PROJECT_NAME + ".context_processors.navbar",
+                PROJECT_NAME + ".context_processors.versions",
+            ],
+        },
+    },
+]
 
 # Testing.
 NOSE_ARGS = (
