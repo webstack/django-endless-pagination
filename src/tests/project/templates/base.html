@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +10,7 @@
     - Django Endless Pagination</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="{{ STATIC_URL }}pagination.css" rel="stylesheet">
+    <link href="{% static 'pagination.css' %}" rel="stylesheet">
   </head>
   <body>
     <div class="container">
@@ -46,7 +47,7 @@
     {% block js %}
       <script src="https://code.jquery.com/jquery-latest.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/bootstrap.min.js"></script>
-      <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+      <script src="{% static 'endless_pagination/js/endless-pagination.js' %}"></script>
     {% endblock js %}
   </body>
 </html>

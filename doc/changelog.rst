@@ -24,8 +24,8 @@ Usage:
     {% block js %}
         {{ block.super }}
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
-        <script> 
+        <script src="{% static 'endless_pagination/js/endless-pagination.js' %}"></script>
+        <script>
           $(document).ready(function(){
             $.endlessPaginate();
           });
