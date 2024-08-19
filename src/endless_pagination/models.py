@@ -1,7 +1,6 @@
 """Ephemeral models used to represent a page and a list of pages."""
 
 from django.template import (
-    RequestContext,
     loader,
 )
 from django.utils.encoding import iri_to_uri
@@ -71,7 +70,7 @@ class EndlessPage:
         template = _template_cache.setdefault(
             template_name, loader.get_template(template_name)
         )
-        return template.render(RequestContext(self._request, context))
+        return template.render(context)
 
 
 class PageList:
@@ -175,8 +174,7 @@ class PageList:
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = RequestContext(self._request, {"pages": pages})
-            return loader.render_to_string("endless/show_pages.html", context)
+            return loader.render_to_string("endless/show_pages.html", {"pages": pages})
         return ""
 
     def current(self):
