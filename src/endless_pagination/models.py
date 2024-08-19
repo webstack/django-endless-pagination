@@ -16,7 +16,7 @@ from endless_pagination import (
 _template_cache = {}
 
 
-class EndlessPage(utils.UnicodeMixin):
+class EndlessPage:
     """A page link representation.
 
     Interesting attributes:
@@ -74,7 +74,7 @@ class EndlessPage(utils.UnicodeMixin):
         return template.render(RequestContext(self._request, context))
 
 
-class PageList(utils.UnicodeMixin):
+class PageList:
     """A sequence of endless pages."""
 
     def __init__(

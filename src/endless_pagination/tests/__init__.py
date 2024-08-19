@@ -3,8 +3,6 @@
 from django.core.management import call_command
 from django.db import models
 
-from endless_pagination import utils
-
 
 def make_model_instances(number):
     """Make a ``number`` of test model instances and return a queryset."""
@@ -13,10 +11,10 @@ def make_model_instances(number):
     return TestModel.objects.all()
 
 
-class TestModel(models.Model, utils.UnicodeMixin):
+class TestModel(models.Model):
     """A model used in tests."""
 
-    def __unicode__(self):
+    def __str__(self):
         return "TestModel: {0}".format(self.id)
 
 

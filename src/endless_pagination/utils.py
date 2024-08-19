@@ -172,10 +172,3 @@ def normalize_page_number(page_number, page_range):
         return page_range[page_number]
     except IndexError:
         return page_range[0]
-
-
-class UnicodeMixin(object):
-    """Mixin class to handle defining the proper unicode and string methods."""
-
-    def __str__(self):
-        return self.__unicode__()
