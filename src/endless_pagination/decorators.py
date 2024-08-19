@@ -29,7 +29,10 @@ def page_template(template, key=PAGE_LABEL):
             extra_context["page_template"] = template
             # Switch the template when the request is Ajax.
             querystring_key = request.GET.get("querystring_key", PAGE_LABEL)
-            if request.is_ajax() and querystring_key == key:
+            if (
+                request.headers.get("x-requested-with") == "XMLHttpRequest"
+                and querystring_key == key
+            ):
                 kwargs[TEMPLATE_VARNAME] = template
             return view(request, *args, **kwargs)
 
@@ -82,7 +85,7 @@ def page_templates(mapping):
             template = _get_template(querystring_key, mapping)
             extra_context["page_template"] = template
             # Switch the template when the request is Ajax.
-            if request.is_ajax() and template:
+            if request.headers.get("x-requested-with") == "XMLHttpRequest" and template:
                 kwargs[TEMPLATE_VARNAME] = template
             return view(request, *args, **kwargs)
 

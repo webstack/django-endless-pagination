@@ -42,7 +42,7 @@ to put the page template name in the context.
             'entries': Entry.objects.all(),
             'page_template': page_template,
         }
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             template = page_template
         return render_to_response(
             template, context, context_instance=RequestContext(request))
