@@ -44,7 +44,7 @@ class EndlessPage(utils.UnicodeMixin):
     ):
         self._request = request
         self.number = number
-        self.label = utils.text(number) if label is None else label
+        self.label = str(number) if label is None else label
         self.querystring_key = querystring_key
 
         self.is_current = number == current_number

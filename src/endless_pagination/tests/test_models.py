@@ -91,7 +91,7 @@ class PageListTest(TestCase):
     def check_page(self, page, number, is_first, is_last, is_current, label=None):
         """Perform several assertions on the given page attrs."""
         if label is None:
-            label = utils.text(page.number)
+            label = str(page.number)
         self.assertEqual(label, page.label)
         self.assertEqual(number, page.number)
         self.assertEqual(is_first, page.is_first)
@@ -101,7 +101,7 @@ class PageListTest(TestCase):
     def check_page_list_callable(self, callable_or_path):
         """Check the provided *page_list_callable* is actually used."""
         with local_settings(PAGE_LIST_CALLABLE=callable_or_path):
-            rendered = utils.text(self.pages).strip()
+            rendered = str(self.pages).strip()
         expected = '<span class="endless_separator">...</span>'
         self.assertEqual(expected, rendered)
 
@@ -175,20 +175,20 @@ class PageListTest(TestCase):
     def test_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.first()
-        rendered_page = utils.text(page)
+        rendered_page = str(page)
         self.assertIn('href="/"', rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_current_page_render(self):
         # Ensure the page is correctly rendered.
         page = self.pages.current()
-        rendered_page = utils.text(page)
+        rendered_page = str(page)
         self.assertNotIn("href", rendered_page)
         self.assertIn(page.label, rendered_page)
 
     def test_page_list_render(self):
         # Ensure the page list is correctly rendered.
-        rendered = utils.text(self.pages)
+        rendered = str(self.pages)
         self.assertEqual(5, rendered.count("<a href"))
         self.assertIn(settings.PREVIOUS_LABEL, rendered)
         self.assertIn(settings.NEXT_LABEL, rendered)
@@ -200,7 +200,7 @@ class PageListTest(TestCase):
             "endless_pagination.tests.test_models.page_list_callable_arrows"
         )
         with local_settings(PAGE_LIST_CALLABLE=page_list_callable):
-            rendered = utils.text(self.pages)
+            rendered = str(self.pages)
         self.assertEqual(7, rendered.count("<a href"))
         self.assertIn(settings.FIRST_LABEL, rendered)
         self.assertIn(settings.LAST_LABEL, rendered)
@@ -209,7 +209,7 @@ class PageListTest(TestCase):
         # Ensure nothing is rendered if the page list contains only one page.
         page = DefaultPaginator(range(10), 10).page(1)
         pages = models.PageList(self.request, page, self.page_label)
-        self.assertEqual("", utils.text(pages))
+        self.assertEqual("", str(pages))
 
     def test_different_default_number(self):
         # Ensure the page path is generated based on the default number.
