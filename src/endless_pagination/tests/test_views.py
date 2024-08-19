@@ -1,7 +1,5 @@
 """View tests."""
 
-from __future__ import unicode_literals
-
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.test import TestCase
@@ -9,8 +7,8 @@ from django.test.client import RequestFactory
 
 from endless_pagination import views
 from endless_pagination.tests import (
-    make_model_instances,
     TestModel,
+    make_model_instances,
 )
 
 
@@ -24,18 +22,18 @@ class CustomizedListView(views.AjaxListView):
 
 
 class AjaxListViewTest(TestCase):
-
-    model_page_template = 'endless_pagination/testmodel_list_page.html'
-    model_template_name = 'endless_pagination/testmodel_list.html'
-    page_template = 'page_template.html'
-    template_name = 'template.html'
-    url = '/?page=2'
+    model_page_template = "endless_pagination/testmodel_list_page.html"
+    model_template_name = "endless_pagination/testmodel_list.html"
+    page_template = "page_template.html"
+    template_name = "template.html"
+    url = "/?page=2"
 
     def setUp(self):
         factory = RequestFactory()
         self.request = factory.get(self.url)
         self.ajax_request = factory.get(
-            self.url, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            self.url, HTTP_X_REQUESTED_WITH="XMLHttpRequest"
+        )
 
     def check_response(self, response, template_name, object_list):
         """Execute several assertions on the response.
@@ -46,7 +44,8 @@ class AjaxListViewTest(TestCase):
         self.assertEqual(200, response.status_code)
         self.assertSequenceEqual([template_name], response.template_name)
         self.assertSequenceEqual(
-            list(object_list), response.context_data['object_list'])
+            list(object_list), response.context_data["object_list"]
+        )
 
     def make_view(self, *args, **kwargs):
         """Return an instance of AjaxListView."""
@@ -105,15 +104,15 @@ class AjaxListViewTest(TestCase):
         view = self.make_view()
         with self.assertRaises(ImproperlyConfigured) as cm:
             view(self.request)
-        self.assertIn('queryset', str(cm.exception))
-        self.assertIn('model', str(cm.exception))
+        self.assertIn("queryset", str(cm.exception))
+        self.assertIn("model", str(cm.exception))
 
     def test_missing_page_template(self):
         # An error is raised if the ``page_template`` name is not provided.
         view = self.make_view(queryset=range(30))
         with self.assertRaises(ImproperlyConfigured) as cm:
             view(self.request)
-        self.assertIn('page_template', str(cm.exception))
+        self.assertIn("page_template", str(cm.exception))
 
     def test_do_not_allow_empty(self):
         # An error is raised if the list is empty and ``allow_empty`` is
@@ -121,7 +120,7 @@ class AjaxListViewTest(TestCase):
         view = self.make_view(model=TestModel, allow_empty=False)
         with self.assertRaises(Http404) as cm:
             view(self.request)
-        self.assertIn('allow_empty', str(cm.exception))
+        self.assertIn("allow_empty", str(cm.exception))
 
     def test_view_in_context(self):
         # Ensure the view is included in the template context.
@@ -130,7 +129,7 @@ class AjaxListViewTest(TestCase):
             page_template=self.page_template,
         )
         response = view(self.request)
-        view_instance = response.context_data['view']
+        view_instance = response.context_data["view"]
         self.assertIsInstance(view_instance, views.AjaxListView)
 
     def test_customized_view(self):

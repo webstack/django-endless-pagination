@@ -1,10 +1,8 @@
 """Ephemeral models used to represent a page and a list of pages."""
 
-from __future__ import unicode_literals
-
 from django.template import (
-    loader,
     RequestContext,
+    loader,
 )
 from django.utils.encoding import iri_to_uri
 
@@ -13,7 +11,6 @@ from endless_pagination import (
     settings,
     utils,
 )
-
 
 # Page templates cache.
 _template_cache = {}
@@ -35,8 +32,16 @@ class EndlessPage(utils.UnicodeMixin):
     """
 
     def __init__(
-            self, request, number, current_number, total_number,
-            querystring_key, label=None, default_number=1, override_path=None):
+        self,
+        request,
+        number,
+        current_number,
+        total_number,
+        querystring_key,
+        label=None,
+        default_number=1,
+        override_path=None,
+    ):
         self._request = request
         self.number = number
         self.label = utils.text(number) if label is None else label
@@ -47,24 +52,25 @@ class EndlessPage(utils.UnicodeMixin):
         self.is_last = number == total_number
 
         self.url = utils.get_querystring_for_page(
-            request, number, self.querystring_key,
-            default_number=default_number)
+            request, number, self.querystring_key, default_number=default_number
+        )
         path = iri_to_uri(override_path or request.path)
-        self.path = '{0}{1}'.format(path, self.url)
+        self.path = "{0}{1}".format(path, self.url)
 
     def __unicode__(self):
         """Render the page as a link."""
         context = {
-            'add_nofollow': settings.ADD_NOFOLLOW,
-            'page': self,
-            'querystring_key': self.querystring_key,
+            "add_nofollow": settings.ADD_NOFOLLOW,
+            "page": self,
+            "querystring_key": self.querystring_key,
         }
         if self.is_current:
-            template_name = 'endless/current_link.html'
+            template_name = "endless/current_link.html"
         else:
-            template_name = 'endless/page_link.html'
+            template_name = "endless/page_link.html"
         template = _template_cache.setdefault(
-            template_name, loader.get_template(template_name))
+            template_name, loader.get_template(template_name)
+        )
         return template.render(RequestContext(self._request, context))
 
 
@@ -72,8 +78,8 @@ class PageList(utils.UnicodeMixin):
     """A sequence of endless pages."""
 
     def __init__(
-            self, request, page, querystring_key,
-            default_number=None, override_path=None):
+        self, request, page, querystring_key, default_number=None, override_path=None
+    ):
         self._request = request
         self._page = page
         if default_number is None:
@@ -110,7 +116,7 @@ class PageList(utils.UnicodeMixin):
             raise TypeError
         if 1 <= value <= len(self):
             return self._endless_page(value)
-        raise IndexError('page list index out of range')
+        raise IndexError("page list index out of range")
 
     def __len__(self):
         """The length of the sequence is the total number of pages."""
@@ -159,19 +165,19 @@ class PageList(utils.UnicodeMixin):
             for item in pages_callable(self._page.number, len(self)):
                 if item is None:
                     pages.append(None)
-                elif item == 'previous':
+                elif item == "previous":
                     pages.append(self.previous())
-                elif item == 'next':
+                elif item == "next":
                     pages.append(self.next())
-                elif item == 'first':
+                elif item == "first":
                     pages.append(self.first_as_arrow())
-                elif item == 'last':
+                elif item == "last":
                     pages.append(self.last_as_arrow())
                 else:
                     pages.append(self[item])
-            context = RequestContext(self._request, {'pages': pages})
-            return loader.render_to_string('endless/show_pages.html', context)
-        return ''
+            context = RequestContext(self._request, {"pages": pages})
+            return loader.render_to_string("endless/show_pages.html", context)
+        return ""
 
     def current(self):
         """Return the current page."""
@@ -219,9 +225,9 @@ class PageList(utils.UnicodeMixin):
         """
         if self._page.has_previous():
             return self._endless_page(
-                self._page.previous_page_number(),
-                label=settings.PREVIOUS_LABEL)
-        return ''
+                self._page.previous_page_number(), label=settings.PREVIOUS_LABEL
+            )
+        return ""
 
     def next(self):
         """Return the next page.
@@ -231,9 +237,9 @@ class PageList(utils.UnicodeMixin):
         """
         if self._page.has_next():
             return self._endless_page(
-                self._page.next_page_number(),
-                label=settings.NEXT_LABEL)
-        return ''
+                self._page.next_page_number(), label=settings.NEXT_LABEL
+            )
+        return ""
 
     def paginated(self):
         """Return True if this page list contains more than one page."""

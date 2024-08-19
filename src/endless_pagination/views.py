@@ -1,7 +1,5 @@
 """Django Endless Pagination class-based views."""
 
-from __future__ import unicode_literals
-
 from django.core.exceptions import ImproperlyConfigured
 from django.http import Http404
 from django.utils.encoding import smart_str
@@ -13,7 +11,6 @@ from endless_pagination.settings import PAGE_LABEL
 
 
 class MultipleObjectMixin(object):
-
     allow_empty = True
     context_object_name = None
     model = None
@@ -29,12 +26,12 @@ class MultipleObjectMixin(object):
         """
         if self.queryset is not None:
             queryset = self.queryset
-            if hasattr(queryset, '_clone'):
+            if hasattr(queryset, "_clone"):
                 queryset = queryset._clone()
         elif self.model is not None:
             queryset = self.model._default_manager.all()
         else:
-            msg = '{0} must define ``queryset`` or ``model``'
+            msg = "{0} must define ``queryset`` or ``model``"
             raise ImproperlyConfigured(msg.format(self.__class__.__name__))
         return queryset
 
@@ -54,9 +51,9 @@ class MultipleObjectMixin(object):
         """
         if self.context_object_name:
             return self.context_object_name
-        elif hasattr(object_list, 'model'):
+        elif hasattr(object_list, "model"):
             object_name = object_list.model._meta.object_name.lower()
-            return smart_str('{0}_list'.format(object_name))
+            return smart_str("{0}_list".format(object_name))
         else:
             return None
 
@@ -73,46 +70,43 @@ class MultipleObjectMixin(object):
         For instance, if the list is a queryset of *blog.Entry*,
         the template will be ``blog/entry_list_page.html``.
         """
-        queryset = kwargs.pop('object_list')
-        page_template = kwargs.pop('page_template', None)
+        queryset = kwargs.pop("object_list")
+        page_template = kwargs.pop("page_template", None)
 
         context_object_name = self.get_context_object_name(queryset)
-        context = {'object_list': queryset, 'view': self}
+        context = {"object_list": queryset, "view": self}
         context.update(kwargs)
         if context_object_name is not None:
             context[context_object_name] = queryset
 
         if page_template is None:
-            if hasattr(queryset, 'model'):
+            if hasattr(queryset, "model"):
                 page_template = self.get_page_template(**kwargs)
             else:
-                raise ImproperlyConfigured(
-                    'AjaxListView requires a page_template')
-        context['page_template'] = self.page_template = page_template
+                raise ImproperlyConfigured("AjaxListView requires a page_template")
+        context["page_template"] = self.page_template = page_template
 
         return context
 
 
 class BaseListView(MultipleObjectMixin, View):
-
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         allow_empty = self.get_allow_empty()
         if not allow_empty and len(self.object_list) == 0:
-            msg = _('Empty list and ``%(class_name)s.allow_empty`` is False.')
-            raise Http404(msg % {'class_name': self.__class__.__name__})
+            msg = _("Empty list and ``%(class_name)s.allow_empty`` is False.")
+            raise Http404(msg % {"class_name": self.__class__.__name__})
         context = self.get_context_data(
-            object_list=self.object_list, page_template=self.page_template)
+            object_list=self.object_list, page_template=self.page_template
+        )
         return self.render_to_response(context)
 
 
-class AjaxMultipleObjectTemplateResponseMixin(
-        MultipleObjectTemplateResponseMixin):
-
+class AjaxMultipleObjectTemplateResponseMixin(MultipleObjectTemplateResponseMixin):
     key = PAGE_LABEL
     page_template = None
-    page_template_suffix = '_page'
-    template_name_suffix = '_list'
+    page_template_suffix = "_page"
+    template_name_suffix = "_list"
 
     def get_page_template(self, **kwargs):
         """Return the template name used for this request.
@@ -121,7 +115,7 @@ class AjaxMultipleObjectTemplateResponseMixin(
         *self.as_view*.
         """
         opts = self.object_list.model._meta
-        return '{0}/{1}{2}{3}.html'.format(
+        return "{0}/{1}{2}{3}.html".format(
             opts.app_label,
             opts.object_name.lower(),
             self.template_name_suffix,
@@ -131,11 +125,10 @@ class AjaxMultipleObjectTemplateResponseMixin(
     def get_template_names(self):
         """Switch the templates for Ajax requests."""
         request = self.request
-        querystring_key = request.GET.get('querystring_key', PAGE_LABEL)
+        querystring_key = request.GET.get("querystring_key", PAGE_LABEL)
         if request.is_ajax() and querystring_key == self.key:
             return [self.page_template]
-        return super(
-            AjaxMultipleObjectTemplateResponseMixin, self).get_template_names()
+        return super(AjaxMultipleObjectTemplateResponseMixin, self).get_template_names()
 
 
 class AjaxListView(AjaxMultipleObjectTemplateResponseMixin, BaseListView):

@@ -1,7 +1,5 @@
 """Paginator tests."""
 
-from __future__ import unicode_literals
-
 from django.test import TestCase
 
 from endless_pagination import paginators
@@ -16,13 +14,12 @@ class PaginatorTestMixin(object):
     def setUp(self):
         self.items = list(range(30))
         self.per_page = 7
-        self.paginator = self.paginator_class(
-            self.items, self.per_page, orphans=2)
+        self.paginator = self.paginator_class(self.items, self.per_page, orphans=2)
 
     def test_object_list(self):
         # Ensure the paginator correctly returns objects for each page.
         first_page = self.paginator.first_page
-        expected = self.items[first_page:first_page + self.per_page]
+        expected = self.items[first_page : first_page + self.per_page]
         object_list = self.paginator.page(2).object_list
         self.assertSequenceEqual(expected, object_list)
 
@@ -45,7 +42,7 @@ class PaginatorTestMixin(object):
     def test_invalid_page(self):
         # En error is raised if the requested page is not valid.
         with self.assertRaises(paginators.PageNotAnInteger):
-            self.paginator.page('__not_valid__')
+            self.paginator.page("__not_valid__")
         with self.assertRaises(paginators.EmptyPage):
             self.paginator.page(0)
 
@@ -62,7 +59,8 @@ class DifferentFirstPagePaginatorTestMixin(PaginatorTestMixin):
         self.items = list(range(26))
         self.per_page = 7
         self.paginator = self.paginator_class(
-            self.items, self.per_page, first_page=3, orphans=2)
+            self.items, self.per_page, first_page=3, orphans=2
+        )
 
     def test_no_orphans(self):
         # Ensure exceeding orphans generate a new page.
@@ -72,7 +70,6 @@ class DifferentFirstPagePaginatorTestMixin(PaginatorTestMixin):
 
 
 class DefaultPaginatorTest(PaginatorTestMixin, TestCase):
-
     paginator_class = paginators.DefaultPaginator
 
     def test_indexes(self):
@@ -109,7 +106,6 @@ class DefaultPaginatorTest(PaginatorTestMixin, TestCase):
 
 
 class LazyPaginatorTest(PaginatorTestMixin, TestCase):
-
     paginator_class = paginators.LazyPaginator
 
     def test_items_count(self):
@@ -129,12 +125,12 @@ class LazyPaginatorTest(PaginatorTestMixin, TestCase):
 
 
 class DifferentFirstPageDefaultPaginatorTest(
-        DifferentFirstPagePaginatorTestMixin, TestCase):
-
+    DifferentFirstPagePaginatorTestMixin, TestCase
+):
     paginator_class = paginators.DefaultPaginator
 
 
 class DifferentFirstPageLazyPaginatorTest(
-        DifferentFirstPagePaginatorTestMixin, TestCase):
-
+    DifferentFirstPagePaginatorTestMixin, TestCase
+):
     paginator_class = paginators.LazyPaginator

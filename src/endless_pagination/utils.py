@@ -1,8 +1,5 @@
 """Django Endless Pagination utility functions."""
 
-from __future__ import unicode_literals
-import sys
-
 from endless_pagination import exceptions
 from endless_pagination.settings import (
     DEFAULT_CALLABLE_AROUNDS,
@@ -12,16 +9,6 @@ from endless_pagination.settings import (
 )
 
 
-# Handle the Python 2 to 3 migration.
-if sys.version_info[0] >= 3:
-    PYTHON3 = True
-    text = str
-else:
-    PYTHON3 = False
-    # Avoid lint errors under Python 3.
-    text = unicode  # NOQA
-
-
 def get_data_from_context(context):
     """Get the django paginator data object from the given *context*.
 
@@ -29,14 +16,12 @@ def get_data_from_context(context):
     is not found, a *PaginationError* is raised.
     """
     try:
-        return context['endless']
+        return context["endless"]
     except KeyError:
-        raise exceptions.PaginationError(
-            'Cannot find endless data in context.')
+        raise exceptions.PaginationError("Cannot find endless data in context.")
 
 
-def get_page_number_from_request(
-        request, querystring_key=PAGE_LABEL, default=1):
+def get_page_number_from_request(request, querystring_key=PAGE_LABEL, default=1):
     """Retrieve the current page number from *GET* or *POST* data.
 
     If the page does not exists in *request*, or is not a number,
@@ -49,8 +34,12 @@ def get_page_number_from_request(
 
 
 def get_page_numbers(
-        current_page, num_pages, extremes=DEFAULT_CALLABLE_EXTREMES,
-        arounds=DEFAULT_CALLABLE_AROUNDS, arrows=DEFAULT_CALLABLE_ARROWS):
+    current_page,
+    num_pages,
+    extremes=DEFAULT_CALLABLE_EXTREMES,
+    arounds=DEFAULT_CALLABLE_AROUNDS,
+    arrows=DEFAULT_CALLABLE_ARROWS,
+):
     """Default callable for page listing.
 
     Produce a Digg-style pagination.
@@ -59,8 +48,8 @@ def get_page_numbers(
     pages = []
     if current_page != 1:
         if arrows:
-            pages.append('first')
-        pages.append('previous')
+            pages.append("first")
+        pages.append("previous")
 
     # Get first and last pages (extremes).
     first = page_range[:extremes]
@@ -83,7 +72,7 @@ def get_page_numbers(
         if diff > 1:
             pages.append(None)
         elif diff < 1:
-            to_add = current[abs(diff) + 1:]
+            to_add = current[abs(diff) + 1 :]
     pages.extend(to_add)
 
     # Mix current with last pages.
@@ -93,13 +82,13 @@ def get_page_numbers(
         if diff > 1:
             pages.append(None)
         elif diff < 1:
-            to_add = last[abs(diff) + 1:]
+            to_add = last[abs(diff) + 1 :]
         pages.extend(to_add)
 
     if current_page != num_pages:
-        pages.append('next')
+        pages.append("next")
         if arrows:
-            pages.append('last')
+            pages.append("last")
     return pages
 
 
@@ -151,27 +140,26 @@ def get_elastic_page_numbers(current_page, num_pages):
     if current_page == 1:
         pages = [1]
     else:
-        pages = ['first', 'previous']
+        pages = ["first", "previous"]
         pages.extend(_make_elastic_range(1, current_page))
     if current_page != num_pages:
         pages.extend(_make_elastic_range(current_page, num_pages)[1:])
-        pages.extend(['next', 'last'])
+        pages.extend(["next", "last"])
     return pages
 
 
-def get_querystring_for_page(
-        request, page_number, querystring_key, default_number=1):
+def get_querystring_for_page(request, page_number, querystring_key, default_number=1):
     """Return a querystring pointing to *page_number*."""
     querydict = request.GET.copy()
     querydict[querystring_key] = page_number
     # For the default page number (usually 1) the querystring is not required.
     if page_number == default_number:
         del querydict[querystring_key]
-    if 'querystring_key' in querydict:
-        del querydict['querystring_key']
+    if "querystring_key" in querydict:
+        del querydict["querystring_key"]
     if querydict:
-        return '?' + querydict.urlencode()
-    return ''
+        return "?" + querydict.urlencode()
+    return ""
 
 
 def normalize_page_number(page_number, page_range):
@@ -189,6 +177,5 @@ def normalize_page_number(page_number, page_range):
 class UnicodeMixin(object):
     """Mixin class to handle defining the proper unicode and string methods."""
 
-    if PYTHON3:
-        def __str__(self):
-            return self.__unicode__()
+    def __str__(self):
+        return self.__unicode__()
