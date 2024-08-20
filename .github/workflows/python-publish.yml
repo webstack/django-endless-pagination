@@ -17,8 +17,6 @@ jobs:
 
       - name: Install the latest version of rye
         uses: eifinger/setup-rye@v4.2.2
-        with:
-          enable-cache: true
 
       - name: Set up Python
         uses: actions/setup-python@v5.1.1
