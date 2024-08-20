@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Version 3.0
+~~~~~~~~~~~
+
+* pyproject.toml: added PEP 517/518 configuration.
+* Upgraded to Django 5.1
+* Dropped support for Python 2.
+* Many cleanups and improvements.
+
 Version 2.0
 ~~~~~~~~~~~
 
