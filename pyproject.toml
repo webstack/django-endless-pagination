@@ -1,6 +1,6 @@
 [project]
 name = "webstack-django-endless-pagination"
-version = "4.0.0"
+version = "4.0.1"
 description = "Lazy pagination for Django with optional infinite-scroll JavaScript"
 authors = [
     { name = "Francesco Banconi", email = "francesco.banconi@gmail.com" },

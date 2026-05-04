@@ -269,7 +269,7 @@ wheels = [
 
 [[package]]
 name = "webstack-django-endless-pagination"
-version = "4.0.0"
+version = "4.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "3.2.25", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.8'" },
@@ -280,3 +280,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "django", specifier = ">=3.0,<7.0" }]
+
+[package.metadata.requires-dev]
+dev = []
