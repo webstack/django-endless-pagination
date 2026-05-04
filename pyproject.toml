@@ -1,7 +1,7 @@
 [project]
 name = "webstack-django-endless-pagination"
 version = "3.1.0"
-description = "Django Endless Pagination can be used to provide Twitter-style or Digg-style pagination"
+description = "Lazy pagination for Django with optional infinite-scroll JavaScript"
 authors = [
     { name = "Francesco Banconi", email = "francesco.banconi@gmail.com" },
 ]
@@ -29,11 +29,6 @@ repository = "http://github.com/webstack/django-endless-pagination.git"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[dependency-groups]
-dev = [
-    "sphinx>=8.0.2; python_version >= '3.10'",
-]
 
 [tool.hatch.metadata]
 allow-direct-references = true

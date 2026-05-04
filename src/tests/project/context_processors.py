@@ -1,44 +1,36 @@
-"""Navigation bar context processor."""
+"""Navigation bar context processor for the demo project."""
 
 import platform
 
 import django
-import endless_pagination
 from django.urls import reverse
 
-VOICES = (
-    # Name and label pairs.
-    ("complete", "Complete example"),
-    ("digg", "Digg-style"),
-    ("twitter", "Twitter-style"),
-    ("onscroll", "On scroll"),
-    ("multiple", "Multiple"),
-    ("callbacks", "Callbacks"),
-    ("chunks", "On scroll/chunks"),
-)
+import endless_pagination
+
+VOICES = (("show_more", "Show more (lazy + on scroll)"),)
 
 
 def navbar(request):
-    """Generate a list of voices for the navigation bar."""
-    voice_list = []
+    """Build the navigation bar voices."""
     current_path = request.path
-    for name, label in VOICES:
-        path = reverse(name)
-        voice_list.append(
+    return {
+        "navbar": [
             {
                 "label": label,
-                "path": path,
-                "is_active": path == current_path,
+                "path": reverse(name),
+                "is_active": reverse(name) == current_path,
             }
-        )
-    return {"navbar": voice_list}
+            for name, label in VOICES
+        ]
+    }
 
 
 def versions(request):
-    """Add to context the version numbers of relevant apps."""
-    values = (
-        ("Python", platform.python_version()),
-        ("Django", django.get_version()),
-        ("Endless Pagination", endless_pagination.get_version()),
-    )
-    return {"versions": values}
+    """Expose Python / Django / package versions to templates."""
+    return {
+        "versions": (
+            ("Python", platform.python_version()),
+            ("Django", django.get_version()),
+            ("Endless Pagination", endless_pagination.get_version()),
+        )
+    }

@@ -1,10 +1,13 @@
-"""Django pagination tools supporting Ajax, multiple and lazy pagination,
-Twitter-style and Digg-style pagination.
-"""
+"""Lazy pagination for Django, with optional infinite-scroll JavaScript."""
 
-VERSION = (2, 0)
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    __version__ = version("django-endless-pagination")
+except PackageNotFoundError:
+    __version__ = "0.0.0"
 
 
 def get_version():
-    """Return the Django Endless Pagination version as a string."""
-    return ".".join(map(str, VERSION))
+    """Return the installed package version."""
+    return __version__
