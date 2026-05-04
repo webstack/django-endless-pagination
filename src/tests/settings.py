@@ -40,10 +40,3 @@ TEMPLATES = [
     },
 ]
 
-# Testing.
-NOSE_ARGS = (
-    "--verbosity=2",
-    "--with-coverage",
-    "--cover-package=endless_pagination",
-)
-TEST_RUNNER = "django_nose.NoseTestSuiteRunner"

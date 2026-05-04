@@ -63,16 +63,12 @@ class DefaultPaginator(BasePaginator):
             top = self.count
         return CustomPage(self.object_list[bottom:top], number, self)
 
-    def _get_num_pages(self):
-        if super().num_pages is None:
-            if self.count == 0 and not self.allow_empty_first_page:
-                super().num_pages = 0
-            else:
-                hits = max(0, self.count - self.orphans - self.first_page)
-                super().num_pages = int(ceil(hits / float(self.per_page))) + 1
-        return super().num_pages
-
-    num_pages = property(_get_num_pages)
+    @property
+    def num_pages(self):
+        if self.count == 0 and not self.allow_empty_first_page:
+            return 0
+        hits = max(0, self.count - self.orphans - self.first_page)
+        return int(ceil(hits / float(self.per_page))) + 1
 
 
 class LazyPaginator(BasePaginator):

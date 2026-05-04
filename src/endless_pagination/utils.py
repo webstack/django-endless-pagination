@@ -27,10 +27,12 @@ def get_page_number_from_request(request, querystring_key=PAGE_LABEL, default=1)
     If the page does not exists in *request*, or is not a number,
     then *default* number is returned.
     """
-    try:
-        return int(request.GET[querystring_key])
-    except (KeyError, TypeError, ValueError):
-        return default
+    for source in (request.GET, request.POST):
+        try:
+            return int(source[querystring_key])
+        except (KeyError, TypeError, ValueError):
+            continue
+    return default
 
 
 def get_page_numbers(

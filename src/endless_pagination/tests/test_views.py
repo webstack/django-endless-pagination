@@ -126,6 +126,7 @@ class AjaxListViewTest(TestCase):
         # Ensure the view is included in the template context.
         view = self.make_view(
             queryset=range(30),
+            template_name=self.template_name,
             page_template=self.page_template,
         )
         response = view(self.request)
