@@ -34,13 +34,10 @@
 {% block js %}
   {{ block.super }}
   <script>
-    $(document).ready(function(){
-      // Paginate items.
-      $('#items').endlessPaginate({pageSelector: '#items'});
-      // Paginate entries.
-      $('#entries').endlessPaginate();
-      // Paginate articles.
-      $('#articles').endlessPaginate({paginateOnScroll: true});
+    document.addEventListener('DOMContentLoaded', function () {
+      endlessPaginate('#items', { pageSelector: '#items' });
+      endlessPaginate('#entries');
+      endlessPaginate('#articles', { paginateOnScroll: true });
     });
   </script>
 {% endblock %}

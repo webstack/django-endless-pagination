@@ -5,8 +5,8 @@
 {% block js %}
   {{ block.super }}
   <script>
-      $(document).ready(function() {
-          $.endlessPaginate();
-      });
+    document.addEventListener('DOMContentLoaded', function () {
+      endlessPaginate();
+    });
   </script>
 {% endblock js %}

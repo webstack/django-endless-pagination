@@ -11,15 +11,15 @@
 {% block js %}
   {{ block.super }}
   <script>
-      $(document).ready(function() {
-          $('.objects').endlessPaginate({
-              paginateOnScroll: true,
-              paginateOnScrollChunkSize: 3
-          });
-          $('.items').endlessPaginate({
-              paginateOnScroll: true,
-              paginateOnScrollChunkSize: 4
-          });
+    document.addEventListener('DOMContentLoaded', function () {
+      endlessPaginate('.objects', {
+        paginateOnScroll: true,
+        paginateOnScrollChunkSize: 3,
       });
+      endlessPaginate('.items', {
+        paginateOnScroll: true,
+        paginateOnScrollChunkSize: 4,
+      });
+    });
   </script>
 {% endblock js %}

@@ -15,38 +15,48 @@
 {% block js %}
   {{ block.super }}
   <script>
-    $(document).ready(function(){
-      // Get a reference of the notifications element.
-      var notifications = $('#notifications');
+    document.addEventListener('DOMContentLoaded', function () {
+      const notifications = document.getElementById('notifications');
 
-      // Add a notification: the element containing the value will have *id*.
-      var notify = function(id, key, value) {
-        var key_element = $('<strong />').html(key + ': ');
-        var value_element = $('<span />').attr('id', id).html(value);
-        var notification = $('<p />').append(key_element).append(value_element);
-        notifications.append(notification);
+      const notify = (id, key, value) => {
+        const paragraph = document.createElement('p');
+        const keyEl = document.createElement('strong');
+        keyEl.textContent = key + ': ';
+        const valueEl = document.createElement('span');
+        valueEl.id = id;
+        valueEl.innerHTML = value == null ? '' : value;
+        paragraph.append(keyEl, valueEl);
+        notifications.append(paragraph);
       };
 
-      // Paginate!
-      $.endlessPaginate({
-        onClick: function(context) {
-          notifications.html('');
-          notify('onclick', 'First object on click', $('#endless h4').html());
-          notify('onclick-label', 'Clicked label', $(this).text());
+      const firstHeading = () => {
+        const heading = document.querySelector('#endless h4');
+        return heading ? heading.innerHTML : '';
+      };
+
+      const lastHeadingIn = (fragment) => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = fragment;
+        const headings = wrapper.querySelectorAll('h4');
+        return headings.length ? headings[headings.length - 1].innerHTML : '';
+      };
+
+      endlessPaginate({
+        onClick(context) {
+          notifications.innerHTML = '';
+          notify('onclick', 'First object on click', firstHeading());
+          notify('onclick-label', 'Clicked label', this.textContent);
           notify('onclick-url', 'URL', context.url);
           notify('onclick-key', 'Querystring key', context.key);
         },
-        onCompleted: function(context, fragment) {
-          notify(
-            'oncompleted', 'First object on completed', $('#endless h4').html());
-          notify('oncompleted-label', 'Clicked label', $(this).text());
+        onCompleted(context, fragment) {
+          notify('oncompleted', 'First object on completed', firstHeading());
+          notify('oncompleted-label', 'Clicked label', this.textContent);
           notify('oncompleted-url', 'URL', context.url);
           notify('oncompleted-key', 'Querystring key', context.key);
-          notify(
-            'fragment', 'Last object in fragment',
-            $(fragment).find('h4').last().html());
+          notify('fragment', 'Last object in fragment', lastHeadingIn(fragment));
         },
-        pageSelector: '#endless'
+        pageSelector: '#endless',
       });
     });
   </script>
