@@ -30,10 +30,9 @@ repository = "http://github.com/webstack/django-endless-pagination.git"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.rye]
-managed = true
-dev-dependencies = [
-    "sphinx>=8.0.2",
+[dependency-groups]
+dev = [
+    "sphinx>=8.0.2; python_version >= '3.10'",
 ]
 
 [tool.hatch.metadata]
